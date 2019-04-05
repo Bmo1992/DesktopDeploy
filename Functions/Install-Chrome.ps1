@@ -1,7 +1,7 @@
 Function Install-Chrome
 {
     <#
-        .SYSNOPSIS
+        .SYNOPSIS
           Function to install the Google Chrome web browser.
 
         .DESCRIPTION
