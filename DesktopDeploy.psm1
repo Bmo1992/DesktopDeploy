@@ -10,6 +10,16 @@
       CREATED : April 5, 2019
 #>
 
+# Check to see if the current powershell session is elevated to admin. If not warn the user that certain script functions may not work.
+$identity = [System.Security.Principal.WindowsIdentity]::GetCurrent()
+$principal = [System.Security.Principal.WindowsPrincipal] $identity
+$role = [System.Security.Principal.WindowsBuiltInRole] "Administrator"
+
+if(-not $principal.IsInRole($role))
+{
+    Write-Error "The functions in this module require administrative priviledges to work correctly. Please close this Window and rerun PowerShell as an administrator."
+}
+
 # Get the script functions
 $Functions = @(Get-ChildItem -Path $PSScriptRoot\Functions\*.ps1 -ErrorAction SilentlyContinue)
 
