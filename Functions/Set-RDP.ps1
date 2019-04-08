@@ -5,6 +5,7 @@ Function Set-RDP
           Disables or enables RDP on a remote or local computer.
 
         .DESCRIPTION
+          Disables or enables RDP on a remote or local computer. By default the script will change values on the local computer unless the ComputerName parameter is specified. In order to run you must have administrative access to make registry changes on the computer in question. If the computer is a remote computer the remote registry service must be enabled on that computer.
 
         .PARAMETER ComputerName
           Specify the a remote computer or computers.
@@ -13,6 +14,24 @@ Function Set-RDP
           Specify whether to enable or disable the RDP by setting this value to true or false. This parameter is required.
 
         .EXAMPLE
+          Set-RDP -Enable $True
+
+          Enables RDP on the local computer.
+
+        .EXAMPLE
+          Set-RDP -Enable $False
+
+          Disables RDP on the local computer.
+
+        .EXAMPLE
+          Set-RDP -Enable $True -ComputerName desktop01
+
+          Enables RDP on the remote computer desktop01.
+
+        .EXAMPLE
+          Set-RDP -Enable $False -ComputerName desktop01,desktop02,desktop03
+
+          Disables RDP on the remote computers desktop01, desktop02, and desktop03.
 
         .NOTES
           NAME    : Set-RDP 
