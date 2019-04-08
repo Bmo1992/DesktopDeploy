@@ -5,11 +5,15 @@ Function Install-Java
           Function to install Java.
 
         .DESCRIPTION
+          Downloads and Installs the most recent version of the Java installer for Windows 64-bit operating systems from the Java website.
 
         .PARAMETER InstallerPath
           Specify a specific path to download the installer to. Default is C:\Temp.
 
         .EXAMPLE
+          Install-Java
+
+          Installs the most recent version of Java for 64-bit versions of Windows.
 
         .EXAMPLE
           Install-Java -InstallerPath 'C:\Users\jdoe\Downloads"
@@ -21,7 +25,7 @@ Function Install-Java
           AUTHOR  : BMO
           EMAIL   : brandonseahorse@gmail.com
           GITHUB  : github.com/Bmo1992
-          CREATED : April 5, 2019
+          CREATED : April 8, 2019
     #>
     [CmdletBinding()]
     Param
@@ -61,7 +65,7 @@ Function Install-Java
     # Try to start the chrome installer process to run silently
     Try
     {
-        Start-Process -FilePath $Path$Installer -Args "/silent /install" -Verb RunAs -Wait
+        Start-Process -FilePath $Path$Installer -Args "/s" -Verb RunAs -Wait
     }
     Catch
     {
