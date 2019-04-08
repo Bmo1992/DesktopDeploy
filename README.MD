@@ -8,7 +8,7 @@ Powershell Module for performing basic desktop configuration tasks quickly.
   - [Commands](#commands)
     - [Install-Chrome](#Install-Chrome)
     - [Install-Java](#Install-Java)
-    - [Set-RDP](#Install-RDP)
+    - [Set-RDP](#Set-RDP)
     - [Set-UAC](#Set-UAC)
 
 ## Usage
