@@ -17,6 +17,18 @@ Function Set-PowerPlanSetting
   
         .PARAMETER SleepButtonAction
           Specify what action to take upon pressing the computer sleep button. Options include DoNothing, Sleep, Hibernate, or ShutDown.
+
+        .PARAMETER SleepAfter
+          Specify the time in minutes for the computer to enter sleep mode after being idle.
+
+        .PARAMETER HibernateAfter
+          Specify the time in minutes for the computer to enter hibernation mode after being idle.
+
+        .PARAMETER TurnOffDisplayAfter
+          Specify the time in minutes for the computer to turn it's display off after being idle.
+
+        .PARAMETER TurnOffHardDiskAfter
+          Specify the time in minutes for the computer to turn the hard disk off after being idle.
  
         .EXAMPLE
  
@@ -231,6 +243,24 @@ Function Set-PowerPlanSetting
                 $HibernateAfterTime = Get-PowerSettingValue -InputPowerPlanId $ActivePowerPlanId  -InputSettingId $HibernateAfterId
    
                 $HibernateAfterTime | Set-CimInstance -Property @{SettingIndexValue = ([int]$HibernateAfter * 60)}
+            }
+            elseif($boundParam.Key -eq 'TurnOffDisplayAfter')
+            {
+                $TurnOffDisplayAfterId = Get-PowerSettingId -ElementName "Turn off display after"
+                $TurnOffDisplayAfterTime = Get-PowerSettingValue -InputPowerPlanId $ActivePowerPlanId -InputSettingId $TurnOffDisplayAfterId
+                
+                Get-PowerSettingValue -InputPowerPlanId $ActivePowerPlanId -InputSettingId $TurnOffDisplayAfterId
+                $TurnOffDisplayAfterTime | Set-CimInstance -Property @{SettingIndexValue = ([int]$TurnOffDisplayAfter * 60)}
+                Get-PowerSettingValue -InputPowerPlanId $ActivePowerPlanId -InputSettingId $TurnOffDisplayAfterId
+            }
+            elseif($boundParam.Key -eq 'TurnOffHardDiskAfter')
+            {
+                $TurnOffHardDiskAfterId = Get-PowerSettingId -ElementName "Turn off hard disk after"
+                $TurnOffHardDiskAfterTime = Get-PowerSettingValue -InputPowerPlanId $ActivePowerPlanId -InputSettingId $TurnOffHardDiskAfterId
+
+                Get-PowerSettingValue -InputPowerPlanId $ActivePowerPlanId -InputSettingId $TurnOffHardDiskAfterId
+                $TurnOffHardDiskAfterTime | Set-CimInstance -Property @{SettingIndexValue = ([int]$TurnOffHardDiskAfter * 60)}
+                Get-PowerSettingValue -InputPowerPlanId $ActivePowerPlanId -InputSettingId $TurnOffHardDiskAfterId
             }
             else
             {
