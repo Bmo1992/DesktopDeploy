@@ -60,7 +60,9 @@ Function Set-PowerPlanSetting
          
         )
  
- # FUNCTIONS
+        ###############
+        #  FUNCTIONS  #
+        ###############
  
         # Get information on all system powerplans 
         Function Get-PowerPlanId
@@ -127,13 +129,50 @@ Function Set-PowerPlanSetting
             -Filter "InstanceID like '%$InputPowerPlanId%AC%$InputSettingId%'"
         } 
 
-        # GLOBAL VARIABLES
+        # Set the value of a power setting that has a specific action like do nothing, sleep, hibernate, or ShutDown.
+        Function Set-ActionedPowerValue
+        {
+            [CmdletBinding()]
+            Param
+            (
+                [Parameter(
+                    Mandatory=$True
+                )]
+                [string]$PowerSettingAction,
+                [object]$ActionedSetting
+            )
 
-        #$PowerSettings = Get-CimInstance -Namespace "root\cimv2\power" -ClassName Win32_PowerSetting
+            if($PowerSettingAction -eq "DoNothing")
+            {
+                $ActionedSetting | Set-CimInstance -Property @{SettingIndexValue = 0}
+            }
+            elseif($PowerSettingAction -eq "Sleep")
+            {
+                $ActionedSetting | Set-CimInstance -Property @{SettingIndexValue = 1}
+            }
+            elseif($PowerSettingAction -eq "Hibernate")
+            {
+                $ActionedSetting | Set-CimInstance -Property @{SettingIndexValue = 2}
+            }
+            elseif($PowerSettingAction -eq "ShutDown")
+            {
+                $ActionedSetting | Set-CimInstance -Property @{SettingIndexValue = 3}
+            }
+            else
+            {
+                Throw "$PowerSettingAction is not a valid setting, please choose from the accepted list."
+            }
+        }
+
+        ######################
+        #  GLOBAL VARIABLES  #
+        ######################  
+
         $ActivePowerPlanId = Get-PowerPlanId -Active $True
 
-
-
+        ##########
+        #  MAIN  #
+        ##########
   
         ForEach($boundParam in $PSBoundParameters.GetEnumerator())
         {
@@ -144,26 +183,7 @@ Function Set-PowerPlanSetting
                 $LowBattery = Get-PowerSettingValue -InputPowerPlanId $ActivePowerPlanId -InputSettingId $LowBatteryId
    
                 Get-PowerSettingValue -InputPowerPlanId $ActivePowerPlanId -InputSettingId $LowBatteryId
-                if($LowBatteryAction -eq "DoNothing")
-                {
-                    $LowBattery | Set-CimInstance -Property @{SettingIndexValue = 0}
-                }
-                elseif($LowBatteryAction -eq "Sleep")
-                {
-                    $LowBattery | Set-CimInstance -Property @{SettingIndexValue = 1}
-                }
-                elseif($LowBatteryAction -eq "Hibernate")
-                {
-                    $LowBattery | Set-CimInstance -Property @{SettingIndexValue = 2}
-                }
-                elseif($LowBatteryAction -eq "ShutDown")
-                {
-                    $LowBattery | Set-CimInstance -Property @{SettingIndexValue = 3}
-                }
-                else
-                {
-                    Throw "$LowBatteryAction is not a valid setting, please choose from the accepted list"
-                }
+                Set-ActionedPowerValue -PowerSettingAction $LowBatteryAction -ActionedSetting $LowBattery
                 Get-PowerSettingValue -InputPowerPlanId $ActivePowerPlanId -InputSettingId $LowBatteryId 
             }
             # Configuration settings for Lid Close Action options.
@@ -173,26 +193,7 @@ Function Set-PowerPlanSetting
                 $LidClose = Get-PowerSettingValue -InputPowerPlanId $ActivePowerPlanId -InputSettingId $LidCloseId
    
                 Get-PowerSettingValue -InputPowerPlanId $ActivePowerPlanId -InputSettingId $LidCloseId
-                if($LidCloseAction -eq "DoNothing")
-                {
-                    $LidClose | Set-CimInstance -Property @{SettingIndexValue = 0}
-                }
-                elseif($LidCloseAction -eq "Sleep")
-                {
-                    $LidClose | Set-CimInstance -Property @{SettingIndexValue = 1}
-                }
-                elseif($LidCloseAction -eq "Hibernate")
-                {
-                    $LidClose | Set-CimInstance -Property @{SettingIndexValue = 2}
-                }
-                elseif($LidCloseAction -eq "ShutDown")
-                {
-                    $LidClose | Set-CimInstance -Property @{SettingIndexValue = 3}
-                }
-                else
-                {
-                    Throw "$LowBatteryAction is not a valid setting, please choose from the accepted list"
-                }
+                Set-ActionedPowerValue -PowerSettingAction $LidCloseAction -ActionedSetting $LidClose
                 Get-PowerSettingValue -InputPowerPlanId $ActivePowerPlanId -InputSettingId $LidCloseId 
             }
             # Configuration settings for the Power button action options. 
@@ -202,26 +203,7 @@ Function Set-PowerPlanSetting
                 $PowerButton = Get-PowerSettingValue -InputPowerPlanId $ActivePowerPlanId -InputSettingId $PowerButtonId
    
                 Get-PowerSettingValue -InputPowerPlanId $ActivePowerPlanId -InputSettingId $PowerButtonId
-                if($PowerButtonAction -eq "DoNothing")
-                {
-                    $PowerButton | Set-CimInstance -Property @{SettingIndexValue = 0}
-                }
-                elseif($PowerButtonAction -eq "Sleep")
-                {
-                    $PowerButton | Set-CimInstance -Property @{SettingIndexValue = 1}
-                }
-                elseif($PowerButtonAction -eq "Hibernate")
-                {
-                    $PowerButton | Set-CimInstance -Property @{SettingIndexValue = 2}
-                }
-                elseif($PowerButtonAction -eq "ShutDown")
-                {
-                    $PowerButton | Set-CimInstance -Property @{SettingIndexValue = 3}
-                }
-                else
-                {
-                    Throw "$LowBatteryAction is not a valid setting, please choose from the accepted list"
-                }
+                Set-ActionedPowerValue -PowerSettingAction $PowerButtonAction -ActionedSetting $PowerButton
                 Get-PowerSettingValue -InputPowerPlanId $ActivePowerPlanId -InputSettingId $PowerButtonId 
             }
             # Configuration settings for the Sleep button action options. 
@@ -231,26 +213,7 @@ Function Set-PowerPlanSetting
                 $SleepButton = Get-PowerSettingValue -InputPowerPlanId $ActivePowerPlanId -InputSettingId $SleepButtonId
    
                 Get-PowerSettingValue -InputPowerPlanId $ActivePowerPlanId -InputSettingId $SleepButtonId
-                if($SleepButtonAction -eq "DoNothing")
-                {
-                    $SleepButton | Set-CimInstance -Property @{SettingIndexValue = 0}
-                }
-                elseif($SleepButtonAction -eq "Sleep")
-                {
-                    $SleepButton | Set-CimInstance -Property @{SettingIndexValue = 1}
-                }
-                elseif($SleepButtonAction -eq "Hibernate")
-                {
-                    $SleepButton | Set-CimInstance -Property @{SettingIndexValue = 2}
-                }
-                elseif($SleepButtonAction -eq "ShutDown")
-                {
-                    $SleepButton | Set-CimInstance -Property @{SettingIndexValue = 3}
-                }
-                else
-                {
-                    Throw "$SleepButtonAction is not a valid setting, please choose from the accepted list"
-                }
+                Set-ActionedPowerValue -PowerSettingAction $SleepButtonAction -ActionedSetting $SleepButton
                 Get-PowerSettingValue -InputPowerPlanId $ActivePowerPlanId -InputSettingId $SleepButtonId 
             }
             elseif($boundParam.Key -eq 'SleepAfter')
