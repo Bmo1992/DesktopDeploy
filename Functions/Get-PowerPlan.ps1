@@ -39,7 +39,7 @@ Function Get-PowerPlan
     if($Active)
     {
         Get-CimInstance -Namespace "root\cimv2\power" -ClassName Win32_PowerPlan | Where{ `
-            $_.IsActive -eq $True
+                $_.IsActive -eq $True
             }
     }
     else
