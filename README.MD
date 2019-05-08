@@ -10,6 +10,7 @@ Powershell Module for performing basic desktop configuration tasks quickly.
     - [Install-Chrome](#Install-Chrome)
     - [Install-Firefox](#Install-Firefox)
     - [Install-Java](#Install-Java)
+    - [Set-PowerPlanSetting](#Set-PowerPlanSetting)
     - [Set-RDP](#Set-RDP)
     - [Set-UAC](#Set-UAC)
 
@@ -70,6 +71,15 @@ Install the Oracle's Java.  This cmdlet downloads the most recent version of Jav
 
 ```powershell
 Install-Java
+```
+
+#### Set-PowerPlanSetting
+
+**Currently Working But Unfinished**
+Set one or more settings of a Windows power plan. By default only the currently active power plan is modified.
+
+```powershell
+Set-PowerPlanSetting -LidCloseAction Sleep -LowBatteryAction ShutDown -TurnOffDisplayAfter 60 -AllowHybridSleep $False
 ```
 
 #### Set-RDP
