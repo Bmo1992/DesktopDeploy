@@ -8,6 +8,7 @@ Powershell Module for performing basic desktop configuration tasks quickly.
   - [Commands](#commands)
     - [Get-PowerPlan](#Get-PowerPlan)
     - [Install-Chrome](#Install-Chrome)
+    - [Install-Firefox](#Install-Firefox)
     - [Install-Java](#Install-Java)
     - [Set-RDP](#Set-RDP)
     - [Set-UAC](#Set-UAC)
@@ -53,6 +54,14 @@ Install the Google Chrome browser.  This cmdlet downloads the most recent versio
 
 ```powershell
 Install-Chrome
+```
+
+#### Install-Firefox
+
+Installs the most recent version of the Mozilla Firefox web browser.
+
+```powershell
+Install-Firefox
 ```
 
 #### Install-Java
