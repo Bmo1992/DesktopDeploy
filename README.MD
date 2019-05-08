@@ -6,6 +6,7 @@ Powershell Module for performing basic desktop configuration tasks quickly.
 - [Usage](#usage)
   - [Installation](#installation)
   - [Commands](#commands)
+    - [Get-PowerPlan](#Get-PowerPlan)
     - [Install-Chrome](#Install-Chrome)
     - [Install-Java](#Install-Java)
     - [Set-RDP](#Set-RDP)
@@ -20,6 +21,31 @@ Instructions coming soon.
 ### Commands
 
 The following commands are available:
+
+#### Get-PowerPlan
+
+Retrieve the power plans on the current computer. Using the -Active arugment will pull only the currently active powerplan.
+
+```powershell
+Get-PowerPlan
+```
+```text
+
+Caption        : 
+Description    : Automatically balances performance with energy consumption on capable hardware.
+ElementName    : Balanced
+InstanceID     : Microsoft:PowerPlan\{44444444-4444-4444-4444-444444444444}
+IsActive       : False
+PSComputerName :
+
+Caption        : 
+Description    : Automatically balances performance with energy consumption on capable hardware.
+ElementName    : Dell
+InstanceID     : Microsoft:PowerPlan\{555555555-5555-5555-5555-555555555555}
+IsActive       : True
+PSComputerName :
+
+```
 
 #### Install-Chrome
 
